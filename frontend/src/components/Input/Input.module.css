@@ -1,0 +1,27 @@
+.inputcomp {
+    font-family: "Manrope", sans-serif;
+    height: 10px;
+    max-width: 400px;
+    width: 100%;
+    margin: 5px 0;
+    font-size: 17px;
+    padding: 20px;
+    border-bottom: 2px solid black;
+    border-top: 2px solid white; 
+    border-left: 2px solid white; 
+    border-right: 2px solid white;
+    margin-bottom: 10px;
+    transition: border 0.3s linear;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.inputcomp:focus {
+   border-radius: 10px;
+   border-bottom: 2px solid black;
+   border-top: 2px solid black; 
+   border-left: 2px solid black; 
+   border-right: 2px solid black;
+   animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {0%{opacity:0;}100%{opacity:1;}}

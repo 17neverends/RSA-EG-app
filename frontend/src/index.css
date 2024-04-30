@@ -1,0 +1,63 @@
+:root {
+  font-family: "Manrope", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}
+
+p {
+  font-family: "Manrope", sans-serif;
+  display: initial;
+  margin-block-start: initial;
+  margin-block-end: initial;
+  margin-inline-start: initial;
+  margin-inline-end: initial;
+}
+
+textarea {
+  font-style: initial;
+  font-variant-ligatures: initial;
+  font-variant-caps: initial;
+  font-variant-numeric: initial;
+  font-variant-east-asian: initial;
+  font-variant-alternates: initial;
+  font-variant-position: initial;
+  font-weight: initial;
+  font-stretch: initial;
+  font-size: initial;
+  font-family: "Manrope", sans-serif;
+  font-optical-sizing: initial;
+  font-kerning: initial;
+  font-feature-settings: initial;
+  font-variation-settings: initial;
+  text-rendering: initial;
+  color: initial;
+  letter-spacing: initial;
+  word-spacing: initial;
+  line-height: initial;
+  text-transform: initial;
+  text-indent: initial;
+  text-shadow: initial;
+  display: initial;
+  text-align: initial;
+  appearance: initial;
+  -webkit-rtl-ordering: initial;
+  resize: initial;
+  cursor: initial;
+  overflow-wrap: initial;
+  background-color: initial;
+  column-count: initial;
+  margin: initial;
+  border-width: initial;
+  border-style: initial;
+  border-color: initial;
+  border-image: initial;
+  padding: initial;
+  white-space: initial;
+}

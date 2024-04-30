@@ -1,0 +1,56 @@
+.theoryBlock {
+    border-radius: 10px;
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    color: black;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    margin-top: 30px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    position: relative;
+    animation: fadeIn 0.5s ease-in;
+}
+
+  
+  @keyframes fadeIn {0%{opacity:0;}100%{opacity:1;}}
+
+
+
+
+
+.theoryTitle {
+    font-size: 30px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+
+.theoryText {
+    font-size: 20px;
+    
+}
+
+.point {
+    font-size: 20px;
+    font-weight: 550;
+}
+
+.list {
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.headerTheory {
+    display: flex;
+    flex-direction: column; 
+}
+
+.switchMethods {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 70px;
+}

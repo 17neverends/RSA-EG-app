@@ -1,0 +1,30 @@
+.cardDiv {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+    border-radius: 10px;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.cardDiv:hover {
+    scale: 1.1;
+    background-color: white;
+}
+
+
+.cardTitle {
+    font-size: 25px;
+    text-decoration: none;
+    color: black;
+}
+
+.cardLogo {
+    width: 250px;
+    height: 250px;
+}

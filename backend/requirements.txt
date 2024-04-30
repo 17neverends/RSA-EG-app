@@ -1,0 +1,8 @@
+sympy==1.12
+cryptography==42.0.5
+uvicorn==0.27.0
+fastapi==0.109.0
+fastjsonschema==2.19.1
+pydantic==2.5.3
+pydantic_core==2.14.6
+python-multipart==0.0.6

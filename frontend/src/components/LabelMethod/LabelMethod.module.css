@@ -1,0 +1,30 @@
+.labelP {
+    font-size: 25px;
+    text-decoration: none;
+    color: black;
+}
+
+.label {
+    padding: 5px;
+    background-color: white;
+    min-width: 100px;
+    text-align: center;
+    margin: 0;
+    position: relative; 
+}
+
+.label::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background-color: black;
+    transition: height 0.1s linear; 
+}
+
+.selectedLabel::after {
+    height: 2px; 
+}
+
