@@ -1,3 +1,10 @@
+https://www.flaticon.com - Icons Source
+All images belong to their copyright holders
+
+Веб приложения для создания электронной цифровой подписи. использовались алгоритмы RSA и Эль-Гамаля. 
+Для реализации была использована библиотека cryptography, также имеется самописная реализация
+Реализованы функции создания ключей, подписи данных и проверки подписи
+
 **Web app for creating an electronic digital signature**
 *The algorithms of RSA and El Gamal were used
 *The cryptography library was used for the implementation, and there is also a self-written implementation
