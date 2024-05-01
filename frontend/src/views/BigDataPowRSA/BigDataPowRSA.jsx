@@ -1,42 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import styles from './BigDataManualEG.module.css'
-import { Input } from '../Input/Input';
-import { ExecuteButton } from '../ExecuteButton/ExecuteButton';
-import { Status } from '../Status/Status';
+import styles from './BigDataPowRSA.module.css'
+import { Input } from '../../components/Input/Input';
+import { ExecuteButton } from '../../components/ExecuteButton/ExecuteButton';
+import { Status } from '../../components/Status/Status';
 import Checkbox from '@mui/material/Checkbox';
 import { FormControlLabel } from '@mui/material';
 import axios from 'axios';
-import { Signature } from '../Signature/Signature';
+import { Signature } from '../../components/Signature/Signature';
 
 const exampleJSON = {
-    "message": 177,
-    "p": 7,
-    "g": 3
+    "message": 128,
+    "exp": 128,
+    "size": 64
 };
 
-export const BigDataManualEG = () => {
+export const BigDataPowRSA = () => {
     const [message, setMessage] = useState('');
-    const [p, setP] = useState('');
-    const [g, setG] = useState('');
+    const [exp, setExp] = useState('');
+    const [size, setSize] = useState('');
     const [signature, setSignature] = useState('');
     const [checked, setChecked] = useState(false);
     const [result, setResult] = useState('');
     const [showResult, setShowResult] = useState(false);
-    const [publicKey, setPublicKey] = useState([]);
+    const [publicKey1, setPublicKey1] = useState('');
+    const [publicKey2, setPublicKey2] = useState('');
 
     const handleChangeCheckbox = (event) => {
         setChecked(event.target.checked);
         if (!event.target.checked) {
             setMessage('');
-            setP('');
-            setG('');
+            setExp('');
+            setSize('');
             setSignature('');
             setResult('');
             setShowResult(false);
         } else {
             setMessage(exampleJSON.message);
-            setP(exampleJSON.p);
-            setG(exampleJSON.g);
+            setExp(exampleJSON.exp);
+            setSize(exampleJSON.size);
         }
     };
 
@@ -54,14 +55,15 @@ export const BigDataManualEG = () => {
         try {
             const signature = {
                 params: {
-                    message: message,
-                    p: p,
-                    g: g
+                    messagen: message,
+                    pn: exp,
+                    qn: size,
                 }
             };
-            const response = await axios.get(`http://127.0.0.1:8000/bigdata/sign/eg`, signature);
+            const response = await axios.get(`http://127.0.0.1:8000/bigdata/sign/rsa/pow`, signature);
             if (response.status === 200 && response.data) {
-                setPublicKey(response.data.public_key);
+                setPublicKey1(response.data.p1);
+                setPublicKey2(response.data.p2);
                 setSignature(response.data.signature); 
             } else {
                 console.error('Ошибка при получении данных:', response);
@@ -79,14 +81,12 @@ export const BigDataManualEG = () => {
             const verify_data = {
                 params: {
                     message: message,
-                    s1: signature[0],
-                    s2: signature[1],
-                    p: p,
-                    g: g,
-                    public: publicKey
+                    signature: signature,
+                    p1: publicKey1,
+                    p2: publicKey2
                 }
             };
-            const response = await axios.get(`http://127.0.0.1:8000/bigdata/verify/eg`, verify_data);
+            const response = await axios.get(`http://127.0.0.1:8000/bigdata/verify/rsa/pow`, verify_data);
             if (response.status === 200 && response.data) {
                 setResult(response.data); 
                 setShowResult(true);
@@ -105,18 +105,18 @@ export const BigDataManualEG = () => {
         <div className={styles.rsasigh}>
             <Input
                 value={message}
-                placeholder="Введите сообщение (m)"
+                placeholder="Введите степень для сообщения (m)"
                 onChange={(e) => setMessage(e.target.value) & setChecked(false)}
             />
             <Input
-                value={p}
-                placeholder="Введите простое число (p)"
-                onChange={(e) => setP(e.target.value) & setChecked(false)}
+                value={exp}
+                placeholder="Введите степень для публичной экспоненты (e)"
+                onChange={(e) => setExp(e.target.value) & setChecked(false)}
             />
             <Input
-                value={g}
-                placeholder="Введите простое число (g)"
-                onChange={(e) => setG(e.target.value) & setChecked(false)}
+                value={size}
+                placeholder="Введите степень для размера ключа (n)"
+                onChange={(e) => setSize(e.target.value) & setChecked(false)}
             />
             <FormControlLabel
                 control={<Checkbox checked={checked} onChange={handleChangeCheckbox} color="default" />}

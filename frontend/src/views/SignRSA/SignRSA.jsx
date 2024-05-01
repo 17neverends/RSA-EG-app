@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import styles from './BigDataManualRSA.module.css'
-import { Input } from '../Input/Input';
-import { ExecuteButton } from '../ExecuteButton/ExecuteButton';
-import { Status } from '../Status/Status';
+import styles from './SignRSA.module.css';
+import { Input } from '../../components/Input/Input';
+import { Textarea } from '../../components/Textarea/Textarea';
+import { ExecuteButton } from '../../components/ExecuteButton/ExecuteButton';
+import { Status } from '../../components/Status/Status';
 import Checkbox from '@mui/material/Checkbox';
 import { FormControlLabel } from '@mui/material';
 import axios from 'axios';
-import { Signature } from '../Signature/Signature';
+import { Signature } from '../../components/Signature/Signature';
 
 const exampleJSON = {
-    "message": 177,
-    "exp": 17,
-    "size": 11
+    "message": "Этот текст будет подписан",
+    "exp": 65537,
+    "size": 2048
 };
 
-export const BigDataManualRSA = () => {
+export const SignRSA = () => {
     const [message, setMessage] = useState('');
     const [exp, setExp] = useState('');
     const [size, setSize] = useState('');
@@ -22,7 +23,6 @@ export const BigDataManualRSA = () => {
     const [checked, setChecked] = useState(false);
     const [result, setResult] = useState('');
     const [showResult, setShowResult] = useState(false);
-    const [publicKey, setPublicKey] = useState([]);
 
     const handleChangeCheckbox = (event) => {
         setChecked(event.target.checked);
@@ -53,16 +53,13 @@ export const BigDataManualRSA = () => {
     const getSign = async () => {
         try {
             const signature = {
-                params: {
-                    message: message,
-                    p: exp,
-                    q: size,
-                }
+                message: message,
+                exp: exp,
+                size: size,
             };
-            const response = await axios.get(`http://127.0.0.1:8000/bigdata/sign/rsa`, signature);
+            const response = await axios.post(`http://127.0.0.1:8000/sign/rsa`, signature);
             if (response.status === 200 && response.data) {
-                setPublicKey(response.data.public_key);
-                setSignature(response.data.signature); 
+                setSignature(response.data); 
             } else {
                 console.error('Ошибка при получении данных:', response);
             }
@@ -72,19 +69,14 @@ export const BigDataManualRSA = () => {
             }
         }
     };
-    
 
     const getVerify = async () => {
         try {
             const verify_data = {
-                params: {
-                    message: message,
-                    signature: signature,
-                    p1: publicKey[0],
-                    p2: publicKey[1]
-                }
+                signature: signature,
+                message: message
             };
-            const response = await axios.get(`http://127.0.0.1:8000/bigdata/verify/rsa`, verify_data);
+            const response = await axios.post(`http://127.0.0.1:8000/verify/rsa`, verify_data);
             if (response.status === 200 && response.data) {
                 setResult(response.data); 
                 setShowResult(true);
@@ -101,9 +93,9 @@ export const BigDataManualRSA = () => {
 
     return (
         <div className={styles.rsasigh}>
-            <Input
+            <Textarea
                 value={message}
-                placeholder="Введите сообщение (m)"
+                placeholder="Введите сообщение"
                 onChange={(e) => setMessage(e.target.value) & setChecked(false)}
             />
             <Input

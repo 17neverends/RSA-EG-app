@@ -1,8 +1,8 @@
-import { MethodPick } from "../views/MethodPick/MethodPick"
-import { TheoryBlock } from "../views/TheoryBlock/TheoryBlock"
-import { Board } from "../views/Board/Board"
-import { PracticeBlock } from "../views/PracticeBlock/PracticeBlock"
-import { BigData } from "../views/BigDataBlock/BigData"
+import { MethodPick } from "../pages/MethodPick/MethodPick"
+import { TheoryBlock } from "../pages/TheoryBlock/TheoryBlock"
+import { Board } from "../pages/Board/Board"
+import { PracticeBlock } from "../pages/PracticeBlock/PracticeBlock"
+import { BigData } from "../pages/BigDataBlock/BigData"
 
 export const nav = [
      { path:     "/",         name: "Главная",        element: <MethodPick />},

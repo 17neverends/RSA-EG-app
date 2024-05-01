@@ -1,7 +1,7 @@
 import styles from './CheckRSA.module.css';
-import { Input } from '../Input/Input';
-import { ExecuteButton } from '../ExecuteButton/ExecuteButton';
-import { Status } from '../Status/Status';
+import { Input } from '../../components/Input/Input';
+import { ExecuteButton } from '../../components/ExecuteButton/ExecuteButton';
+import { Status } from '../../components/Status/Status';
 import Checkbox from '@mui/material/Checkbox';
 import { FormControlLabel } from '@mui/material';
 import axios from 'axios';

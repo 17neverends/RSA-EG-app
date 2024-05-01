@@ -1,42 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import styles from './SignRSA.module.css';
-import { Input } from '../Input/Input';
-import { Textarea } from '../Textarea/Textarea';
-import { ExecuteButton } from '../ExecuteButton/ExecuteButton';
-import { Status } from '../Status/Status';
+import styles from './BigDataManualEG.module.css'
+import { Input } from '../../components/Input/Input';
+import { ExecuteButton } from '../../components/ExecuteButton/ExecuteButton';
+import { Status } from '../../components/Status/Status';
 import Checkbox from '@mui/material/Checkbox';
 import { FormControlLabel } from '@mui/material';
 import axios from 'axios';
-import { Signature } from '../Signature/Signature';
+import { Signature } from '../../components/Signature/Signature';
 
 const exampleJSON = {
-    "message": "Этот текст будет подписан",
-    "exp": 65537,
-    "size": 2048
+    "message": 177,
+    "p": 7,
+    "g": 3
 };
 
-export const SignRSA = () => {
+export const BigDataManualEG = () => {
     const [message, setMessage] = useState('');
-    const [exp, setExp] = useState('');
-    const [size, setSize] = useState('');
+    const [p, setP] = useState('');
+    const [g, setG] = useState('');
     const [signature, setSignature] = useState('');
     const [checked, setChecked] = useState(false);
     const [result, setResult] = useState('');
     const [showResult, setShowResult] = useState(false);
+    const [publicKey, setPublicKey] = useState([]);
 
     const handleChangeCheckbox = (event) => {
         setChecked(event.target.checked);
         if (!event.target.checked) {
             setMessage('');
-            setExp('');
-            setSize('');
+            setP('');
+            setG('');
             setSignature('');
             setResult('');
             setShowResult(false);
         } else {
             setMessage(exampleJSON.message);
-            setExp(exampleJSON.exp);
-            setSize(exampleJSON.size);
+            setP(exampleJSON.p);
+            setG(exampleJSON.g);
         }
     };
 
@@ -53,13 +53,16 @@ export const SignRSA = () => {
     const getSign = async () => {
         try {
             const signature = {
-                message: message,
-                exp: exp,
-                size: size,
+                params: {
+                    message: message,
+                    p: p,
+                    g: g
+                }
             };
-            const response = await axios.post(`http://127.0.0.1:8000/sign/rsa`, signature);
+            const response = await axios.get(`http://127.0.0.1:8000/bigdata/sign/eg`, signature);
             if (response.status === 200 && response.data) {
-                setSignature(response.data); 
+                setPublicKey(response.data.public_key);
+                setSignature(response.data.signature); 
             } else {
                 console.error('Ошибка при получении данных:', response);
             }
@@ -69,14 +72,21 @@ export const SignRSA = () => {
             }
         }
     };
+    
 
     const getVerify = async () => {
         try {
             const verify_data = {
-                signature: signature,
-                message: message
+                params: {
+                    message: message,
+                    s1: signature[0],
+                    s2: signature[1],
+                    p: p,
+                    g: g,
+                    public: publicKey
+                }
             };
-            const response = await axios.post(`http://127.0.0.1:8000/verify/rsa`, verify_data);
+            const response = await axios.get(`http://127.0.0.1:8000/bigdata/verify/eg`, verify_data);
             if (response.status === 200 && response.data) {
                 setResult(response.data); 
                 setShowResult(true);
@@ -93,20 +103,20 @@ export const SignRSA = () => {
 
     return (
         <div className={styles.rsasigh}>
-            <Textarea
+            <Input
                 value={message}
-                placeholder="Введите сообщение"
+                placeholder="Введите сообщение (m)"
                 onChange={(e) => setMessage(e.target.value) & setChecked(false)}
             />
             <Input
-                value={exp}
-                placeholder="Введите публичную экспоненту (e)"
-                onChange={(e) => setExp(e.target.value) & setChecked(false)}
+                value={p}
+                placeholder="Введите простое число (p)"
+                onChange={(e) => setP(e.target.value) & setChecked(false)}
             />
             <Input
-                value={size}
-                placeholder="Введите размер ключа (n)"
-                onChange={(e) => setSize(e.target.value) & setChecked(false)}
+                value={g}
+                placeholder="Введите простое число (g)"
+                onChange={(e) => setG(e.target.value) & setChecked(false)}
             />
             <FormControlLabel
                 control={<Checkbox checked={checked} onChange={handleChangeCheckbox} color="default" />}

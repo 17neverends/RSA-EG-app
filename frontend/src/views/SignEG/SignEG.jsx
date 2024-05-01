@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styles from './SignEG.module.css';
-import { Input } from '../Input/Input';
-import { Textarea } from '../Textarea/Textarea';
-import { ExecuteButton } from '../ExecuteButton/ExecuteButton';
-import { Status } from '../Status/Status';
+import { Textarea } from '../../components/Textarea/Textarea';
+import { ExecuteButton } from '../../components/ExecuteButton/ExecuteButton';
+import { Status } from '../../components/Status/Status';
 import Checkbox from '@mui/material/Checkbox';
 import { FormControlLabel } from '@mui/material';
 import axios from 'axios';
-import { Signature } from '../Signature/Signature';
+import { Signature } from '../../components/Signature/Signature';
 
 const example = {
     "message": "Этот текст будет подписан"

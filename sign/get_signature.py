@@ -5,7 +5,7 @@ crypto = CryptographyActions()
 
 crypto.generate_rsa_keys(exp=65537, size=2048)
 
-public_key_pem = crypto.public_key.public_bytes(
+public_key_pem = crypto.rsa_public_key.public_bytes(
     encoding=serialization.Encoding.PEM,
     format=serialization.PublicFormat.SubjectPublicKeyInfo
 )   
@@ -27,8 +27,7 @@ with open("index.html", "wb") as page:
     page.write(web_page_data) 
 
 
-signature = crypto.sign_data(web_page_data)
-print(signature.hex())
+signature = crypto.sign_data_rsa(web_page_data)
 
 with open("signature.dat", "wb") as signature_file: 
     signature_file.write(signature) 
@@ -39,7 +38,7 @@ with open("public.pem", "wb") as public_key_file:
 
 
 
-if crypto.verify_signature(signature, web_page_data):
-    print("Подпись верна. Веб-страница не изменена.")
+if crypto.verify_signature_rsa(signature, web_page_data):
+    print("Верификация RSA пройдена.\nПодпись верна. Веб-страница не изменена.")
 else:
-    print("Подпись недействительна. Веб-страница была изменена или произошла ошибка при проверке подписи.")
+    print("Подпись недействительна. Веб-страница была изменена")

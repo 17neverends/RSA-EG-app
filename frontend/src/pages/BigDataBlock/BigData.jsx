@@ -1,15 +1,15 @@
-import styles from './PracticeBlock.module.css'
+import styles from './BigData.module.css'
 import { LabelMethod } from '../../components/LabelMethod/LabelMethod';
 import { useState } from 'react';
-import { SignRSA } from '../../components/SignRSA/SignRSA';
-import { CheckRSA } from '../../components/CheckRSA/CheckRSA';
-import { SignEG } from '../../components/SignEG/SignEG';
-import { CheckEG } from '../../components/CheckEG/CheckEG';
+import { BigDataManualRSA } from '../../views/BigDataManualRSA/BigDataManualRSA';
 import Switch from 'react-switch';
+import { BigDataPowRSA } from '../../views/BigDataPowRSA/BigDataPowRSA';
+import { BigDataManualEG } from '../../views/BigDataManualEG/BigDataManualEG';
+import { BigDataPowEg } from '../../views/BigDataPowEG/BigDataPowEG';
 
 
 
-export const PracticeBlock = ({ method }) => {
+export const BigData = ({ method }) => {
 
     const isRSA = method === "RSA";
     const [checked, setChecked] = useState(false);
@@ -25,21 +25,21 @@ export const PracticeBlock = ({ method }) => {
     return (  
         <div className={styles.practice}>
             <div className={styles.headerTheory}>
-                <p className={styles.theoryTitle}>Электронная цифровая подпись</p>
+                <p className={styles.theoryTitle}>Большие данные для создания ЭЦП</p>
                 <div className={styles.switchMethods}>
                     <LabelMethod 
                         name="RSA"
                         selected={isRSA ? true : false}
-                        link="/rsa/practice"
+                        link="/bigdata/rsa"
                     />
                     <LabelMethod 
                         name="EG"
                         selected={isRSA ? false : true}
-                        link="/eg/practice"
+                        link="/bigdata/eg"
                     />
                 </div>
                 <div className={styles.chooseAction}>
-                    <p className={styles.action}>Создание</p>
+                    <p className={styles.action}>Ручной ввод</p>
                     <Switch
                         onChange={handleChange}
                         checked={checked}
@@ -49,14 +49,15 @@ export const PracticeBlock = ({ method }) => {
                         uncheckedIcon={false}
                         activeBoxShadow="none"
                     />
-                    <p className={styles.action}>Проверка</p>
+                    <p className={styles.action}>2<sup>n</sup>, n &ge; 64</p>
                 </div>
             </div>
 
-            {isRSA && !checked ? <SignRSA/> : null}
-            {isRSA && checked ? <CheckRSA/> : null}
-            {!isRSA && !checked ? <SignEG/> : null}
-            {!isRSA && checked ? <CheckEG/> : null}
+            {isRSA && !checked ? <BigDataManualRSA/> : null}
+            {isRSA && checked ? <BigDataPowRSA/> : null}
+            {!isRSA && !checked ? <BigDataManualEG/> : null}
+            {!isRSA && checked ? <BigDataPowEg/> : null}
+
 
         </div>
     );
