@@ -6,9 +6,9 @@ All images belong to their copyright holders
 Реализованы функции создания ключей, подписи данных и проверки подписи**
 
 **Web app for creating an electronic digital signature**
-*The algorithms of RSA and El Gamal were used
-*The cryptography library was used for the implementation, and there is also a self-written implementation
-*The functions of key creation, data signing and signature verification are implemented
+- The algorithms of RSA and El Gamal were used
+- The cryptography library was used for the implementation, and there is also a self-written implementation
+- The functions of key creation, data signing and signature verification are implemented
 
 **Some views:**
 ![image](https://github.com/17neverends/RSA-EG-app/assets/118381764/ef33fceb-afbe-4ec0-9432-38e48778c787)
